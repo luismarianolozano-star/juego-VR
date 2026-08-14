@@ -5,26 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mi Juego VR</title>
     
-    <!-- NUEVA ALTERNATIVA: Cambiamos a la infraestructura global de UNPKG -->
     <script src="https://unpkg.com"></script>
     
     <style>
-      html, body { margin: 0; padding: 0; overflow: hidden; background-color: #111; }
+      html, body { margin: 0; padding: 0; overflow: hidden; background-color: #222; }
     </style>
   </head>
   <body>
 
-    <a-scene embedded>
-      <!-- Espacio Visual -->
+    <!-- Agregamos 'renderer' para forzar al motor a usar compatibilidad básica móvil -->
+    <a-scene embedded renderer="colorManagement: true; precision: medium;">
+      
+      <!-- ILUMINACIÓN DE EMERGENCIA: Forzamos luz en la escena -->
+      
+      
+
+      <!-- Fondo y Suelo -->
       <a-sky color="#0F172A"></a-sky>
       <a-plane position="0 0 0" rotation="-90 0 0" width="30" height="30" color="#334155"></a-plane>
 
-      <!-- Esferas del juego -->
+      <!-- Esferas objetivos -->
       <a-sphere class="objetos" position="-1.5 1.5 -3" radius="0.4" color="#F43F5E"></a-sphere>
       <a-sphere class="objetos" position="0 1.8 -4" radius="0.4" color="#F43F5E"></a-sphere>
       <a-sphere class="objetos" position="1.5 1.2 -3" radius="0.4" color="#F43F5E"></a-sphere>
 
-      <!-- Visión del jugador y la mira central -->
+      <!-- Cámara del jugador -->
       
         
         
@@ -32,26 +37,23 @@
     </a-scene>
 
     <script>
-      // Esta función se activa cuando la escena 3D se dibuja con éxito
       document.querySelector('a-scene').addEventListener('render-target-loaded', function () {
         var esferas = document.querySelectorAll('.objetos');
 
         esferas.forEach(function(esfera) {
           esfera.addEventListener('click', function () {
-            // Posiciones nuevas al azar
             var nuevoX = (Math.random() * 6) - 3; 
             var nuevoY = (Math.random() * 3) + 0.5; 
             var nuevoZ = (Math.random() * -4) - 2; 
 
             esfera.setAttribute('position', {x: nuevoX, y: nuevoY, z: nuevoZ});
             
-            // Colores brillantes al azar
             var colores = ['#38BDF8', '#4ADE80', '#FB923C', '#E2E8F0', '#F43F5E'];
             var colorAleatorio = colores[Math.floor(Math.random() * colores.length)];
             esfera.setAttribute('color', colorAleatorio);
           });
         });
-        console.log("¡Motor VR cargado desde unpkg y esferas listas!");
+        console.log("¡Todo listo!");
       });
     </script>
 
