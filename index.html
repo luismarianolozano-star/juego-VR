@@ -5,61 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mi Juego VR</title>
     
-    <!-- Servidor oficial de distribución global de A-Frame -->
-    <script src="https://aframe.io"></script>
+    <!-- ENLACE CORREGIDO: Servidor jsDelivr ultra estable -->
+    <script src="https://jsdelivr.net"></script>
     
     <style>
-      html, body { margin: 0; padding: 0; overflow: hidden; background-color: #000000; }
+      html, body { margin: 0; padding: 0; overflow: hidden; background-color: #111; }
     </style>
   </head>
   <body>
 
     <a-scene embedded>
-      <!-- Entorno Visual -->
-      <a-sky color="#1A1A2E"></a-sky>
-      <a-plane position="0 0 0" rotation="-90 0 0" width="30" height="30" color="#16213E"></a-plane>
+      <!-- Espacio Visual -->
+      <a-sky color="#0F172A"></a-sky>
+      <a-plane position="0 0 0" rotation="-90 0 0" width="30" height="30" color="#334155"></a-plane>
 
-      <!-- Esferas iniciales fijas -->
-      <a-sphere class="objetos" position="-1.5 1.5 -3" radius="0.4" color="#E94560"></a-sphere>
-      <a-sphere class="objetos" position="0 1.8 -4" radius="0.4" color="#E94560"></a-sphere>
-      <a-sphere class="objetos" position="1.5 1.2 -3" radius="0.4" color="#E94560"></a-sphere>
+      <!-- Esferas del juego -->
+      <a-sphere class="objetos" position="-1.5 1.5 -3" radius="0.4" color="#F43F5E"></a-sphere>
+      <a-sphere class="objetos" position="0 1.8 -4" radius="0.4" color="#F43F5E"></a-sphere>
+      <a-sphere class="objetos" position="1.5 1.2 -3" radius="0.4" color="#F43F5E"></a-sphere>
 
-      <!-- Cámara y Cursor de mirada -->
+      <!-- Visión del jugador y la mira central -->
       
         
         
       
     </a-scene>
 
-    <!-- Script de control a prueba de fallos de inicialización -->
     <script>
-      // 1. Escuchamos el evento nativo de la escena: 'render-target-loaded'
-      // Esto garantiza que la librería ya descargó, compiló y el motor 3D está corriendo.
+      // Se activa inmediatamente cuando la escena 3D termina de cargarse en pantalla
       document.querySelector('a-scene').addEventListener('render-target-loaded', function () {
-        
-        // 2. Buscamos todas las esferas del escenario
         var esferas = document.querySelectorAll('.objetos');
 
-        // 3. Asignamos la lógica de movimiento usando JavaScript puro
         esferas.forEach(function(esfera) {
           esfera.addEventListener('click', function () {
-            
-            // Calculamos nuevas coordenadas aleatorias
+            // Posiciones nuevas al azar
             var nuevoX = (Math.random() * 6) - 3; 
             var nuevoY = (Math.random() * 3) + 0.5; 
             var nuevoZ = (Math.random() * -4) - 2; 
 
-            // Aplicamos la nueva posición a la esfera seleccionada
             esfera.setAttribute('position', {x: nuevoX, y: nuevoY, z: nuevoZ});
             
-            // Cambiamos el color dinámicamente
-            var colores = ['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33F3'];
+            // Colores brillantes al azar
+            var colores = ['#38BDF8', '#4ADE80', '#FB923C', '#E2E8F0', '#F43F5E'];
             var colorAleatorio = colores[Math.floor(Math.random() * colores.length)];
             esfera.setAttribute('color', colorAleatorio);
           });
         });
-
-        console.log("¡Lógica de juego VR iniciada con éxito!");
+        console.log("¡Motor VR listo y esferas configuradas!");
       });
     </script>
 
