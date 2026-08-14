@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Mi Juego VR - Mover Objetos</title>
-    <!-- Cargamos la librería A-Frame -->
+    <!-- Cargamos la librería A-Frame obligatoriamente en el head -->
     <script src="https://aframe.io"></script>
     
     <!-- Lógica del juego en JavaScript -->
@@ -12,17 +12,16 @@
         init: function () {
           var el = this.el;
           
-          // Detecta cuando el usuario mira fijamente el objeto
           el.addEventListener('click', function () {
             // Genera nuevas posiciones aleatorias
-            var nuevoX = (Math.random() * 6) - 3; // Entre -3 y 3
-            var nuevoY = (Math.random() * 3) + 0.5; // Entre 0.5 y 3.5
-            var nuevoZ = (Math.random() * -4) - 2; // Entre -2 y -6
+            var nuevoX = (Math.random() * 6) - 3; 
+            var nuevoY = (Math.random() * 3) + 0.5; 
+            var nuevoZ = (Math.random() * -4) - 2; 
 
-            // Mueve el objeto a la nueva posición
+            // Mueve el objeto
             el.setAttribute('position', {x: nuevoX, y: nuevoY, z: nuevoZ});
             
-            // Cambia el color aleatoriamente para dar feedback visual
+            // Cambia el color aleatoriamente
             var colores = ['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33F3'];
             var colorAleatorio = colores[Math.floor(Math.random() * colores.length)];
             el.setAttribute('color', colorAleatorio);
@@ -39,22 +38,14 @@
       <!-- El suelo -->
       <a-plane position="0 0 0" rotation="-90 0 0" width="30" height="30" color="#16213E"></a-plane>
 
-      <!-- Objetos que aparecen (tienen el componente 'interactivo') -->
+      <!-- Objetos interactivos -->
       <a-sphere interactivo position="-2 1.5 -4" radius="0.5" color="#E94560"></a-sphere>
       <a-sphere interactivo position="0 2 -5" radius="0.5" color="#E94560"></a-sphere>
       <a-sphere interactivo position="2 1 -3" radius="0.5" color="#E94560"></a-sphere>
 
-      <!-- Cámara del jugador con el cursor de mirada (Fusing) -->
+      <!-- Cámara del jugador con el cursor de mirada usando la sintaxis moderna -->
       
-        <!-- El cursor es un círculo en el centro de la pantalla -->
         
-          <!-- Animación visual cuando estás apuntando a un objeto -->
-          <a-animation begin="fusing" easing="ease-in" attribute="scale"
-                       fill="forwards" from="1 1 1" to="0.1 0.1 0.1" dur="1000"></a-animation>
-          <a-animation begin="click" easing="ease-in" attribute="scale"
-                       from="0.1 0.1 0.1" to="1 1 1" dur="150"></a-animation>
-          <a-animation begin="mouseleave" easing="ease-in" attribute="scale"
-                       to="1 1 1" dur="150"></a-animation>
         
       
     </a-scene>
