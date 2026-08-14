@@ -1,27 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
   <head>
     <meta charset="utf-8">
-    <title>Mi Juego VR - Mover Objetos</title>
-    <!-- Cargamos la librería A-Frame obligatoriamente en el head -->
-    <script src="https://aframe.io"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mi Juego VR</title>
     
-    <!-- Lógica del juego en JavaScript -->
+    <!-- REGLA 1: La librería SIEMPRE va sola en el head -->
+    <script src="https://cloudflare.com"></script>
+    
+    <style>
+      html, body { margin: 0; padding: 0; overflow: hidden; background-color: #000000; }
+    </style>
+  </head>
+  <body>
+
+    <!-- REGLA 2: La escena va antes que cualquier script personalizado -->
+    <a-scene embedded>
+      <a-sky color="#1A1A2E"></a-sky>
+      <a-plane position="0 0 0" rotation="-90 0 0" width="30" height="30" color="#16213E"></a-plane>
+
+      <!-- Esferas con el componente 'interactivo' -->
+      <a-sphere interactivo position="-1.5 1.5 -3" radius="0.4" color="#E94560"></a-sphere>
+      <a-sphere interactivo position="0 1.8 -4" radius="0.4" color="#E94560"></a-sphere>
+      <a-sphere interactivo position="1.5 1.2 -3" radius="0.4" color="#E94560"></a-scheme>
+
+      <!-- Cámara y Cursor de mirada -->
+      
+        
+        
+      
+    </a-scene>
+
+    <!-- REGLA 3: Tu lógica va al final de TODO, justo antes de cerrar el body -->
     <script>
+      // Este bloque se ejecuta únicamente cuando A-Frame ya cargó por completo en memoria
       AFRAME.registerComponent('interactivo', {
         init: function () {
           var el = this.el;
           
           el.addEventListener('click', function () {
-            // Genera nuevas posiciones aleatorias
+            // Nuevas coordenadas al azar
             var nuevoX = (Math.random() * 6) - 3; 
             var nuevoY = (Math.random() * 3) + 0.5; 
             var nuevoZ = (Math.random() * -4) - 2; 
 
-            // Mueve el objeto
             el.setAttribute('position', {x: nuevoX, y: nuevoY, z: nuevoZ});
             
-            // Cambia el color aleatoriamente
+            // Cambiar color
             var colores = ['#FF5733', '#33FF57', '#3357FF', '#F3FF33', '#FF33F3'];
             var colorAleatorio = colores[Math.floor(Math.random() * colores.length)];
             el.setAttribute('color', colorAleatorio);
@@ -29,25 +54,6 @@
         }
       });
     </script>
-  </head>
-  <body>
-    <a-scene>
-      <!-- El cielo / fondo -->
-      <a-sky color="#1A1A2E"></a-sky>
 
-      <!-- El suelo -->
-      <a-plane position="0 0 0" rotation="-90 0 0" width="30" height="30" color="#16213E"></a-plane>
-
-      <!-- Objetos interactivos -->
-      <a-sphere interactivo position="-2 1.5 -4" radius="0.5" color="#E94560"></a-sphere>
-      <a-sphere interactivo position="0 2 -5" radius="0.5" color="#E94560"></a-sphere>
-      <a-sphere interactivo position="2 1 -3" radius="0.5" color="#E94560"></a-sphere>
-
-      <!-- Cámara del jugador con el cursor de mirada usando la sintaxis moderna -->
-      
-        
-        
-      
-    </a-scene>
   </body>
 </html>
